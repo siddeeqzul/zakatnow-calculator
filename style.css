@@ -1,0 +1,1111 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent; /* Removes tap highlight on mobile */
+}
+
+html, body {
+    height: auto;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth; /* Add smooth scrolling */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 700px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    flex: 1;
+    margin: 20px;
+}
+
+h1 {
+    color: #1a237e;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.2em;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+select, input[type="number"], input[type="text"], input[type="email"] {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    -webkit-appearance: none; /* Removes default styling on iOS */
+    appearance: none;
+}
+
+select {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%23444' d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+select:focus, input[type="number"]:focus {
+    border-color: #7631f5;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(118, 49, 245, 0.1);
+}
+
+select:disabled {
+    background-color: #f8f9fa;
+    color: #333;
+    cursor: not-allowed;
+    opacity: 0.8;
+    border-color: #e0e0e0;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #7631f5;
+    color: white;
+    flex: initial; /* Remove the flex property */
+}
+
+/* New calculate button style */
+.btn-calculate {
+    width: 50%; /* Make button half the original width */
+    max-width: 200px;
+}
+
+/* Reset button with icon */
+.btn-icon-reset {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #ff3d3d;
+    border-radius: 50%;
+    font-size: 1.6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.btn-icon-reset:hover {
+    background-color: #ffe6e6;
+    transform: rotate(15deg);
+    color: #e63535;
+}
+
+/* Override previous btn-reset styles */
+.btn-reset {
+    background-color: #ff3d3d;
+    color: white;
+}
+
+.result {
+    margin-top: 30px;
+    padding: 25px;
+    background: #f0f4ff; /* Changed from white to faded blue */
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    transform: translateY(0);
+    transition: all 0.3s ease;
+    position: relative;
+    border: none;
+    animation: floatIn 0.5s ease-out forwards;
+    overflow: hidden;
+}
+
+@keyframes floatIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Removed the .result::before gradient accent line completely */
+
+.result h2 {
+    color: #1a237e;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    font-weight: 600;
+    /* Removed left padding since there's no accent line anymore */
+}
+
+.result p {
+    margin: 12px 0;
+    font-size: 1.1em;
+    line-height: 1.6;
+    /* Removed left padding since there's no accent line anymore */
+    color: #444;
+}
+
+.zakat-amount {
+    color: #0066cc; /* Changed from #2e7d32 (green) to #0066cc (blue) */
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background: #e6f0fa; /* Changed from #f0f7ed (light green) to #e6f0fa (light blue) */
+    border-radius: 8px;
+    display: block;
+}
+
+@media (max-width: 600px) {
+.container {
+padding: 20px;
+}
+.button-group {
+flex-direction: row; /* Keep buttons in a row on mobile */
+justify-content: center;
+}
+.btn-calculate {
+width: 70%; /* Slightly wider on mobile */
+}
+}
+
+.deductions {
+margin-top: 20px;
+}
+
+/* Update deduction item for consistent amount display */
+.deduction-item {
+    display: grid;
+    grid-template-columns: minmax(120px, auto) 1fr auto auto;
+    grid-gap: 10px;
+    align-items: center;
+    margin: 10px 0;
+    padding: 12px 15px;
+    background: #f8f8f8;
+    border-radius: 8px;
+}
+
+.deduction-label {
+    font-weight: 500;
+    color: #444;
+}
+
+.deduction-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+
+.amount-display {
+    font-weight: 500;
+    color: #7631f5;
+    text-align: right;
+    white-space: nowrap;
+    padding-right: 5px;
+    font-size: 0.9rem; /* Added smaller font size */
+}
+
+/* Responsive adjustments */
+@media (max-width: 650px) {
+    .deduction-item {
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "label delete"
+            "controls amount";
+    }
+    
+    .deduction-label {
+        grid-area: label;
+    }
+    
+    .deduction-controls {
+        grid-area: controls;
+        flex-wrap: wrap;
+    }
+    
+    .amount-display {
+        grid-area: amount;
+        text-align: left;
+    }
+    
+    .remove-btn {
+        grid-area: delete;
+    }
+}
+
+.deduction-item > span {
+min-width: 120px;
+margin-right: 10px;
+}
+
+/* Toggle switch styling */
+.deduction-switch {
+position: relative;
+display: inline-block;
+width: 48px;
+height: 24px;
+}
+
+.deduction-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+
+.deduction-slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+transition: .4s;
+border-radius: 34px;
+}
+
+.deduction-slider:before {
+position: absolute;
+content: "";
+height: 20px;
+width: 20px;
+left: 2px;
+bottom: 2px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+
+.deduction-switch input:checked + .deduction-slider {
+background-color: #7631f5;
+}
+
+.deduction-switch input:checked + .deduction-slider:before {
+transform: translateX(24px);
+}
+
+.add-deduction {
+background-color: #7631f5;
+color: white;
+border: none;
+border-radius: 5px;
+padding: 10px 20px;
+cursor: pointer;
+transition: all 0.3s ease;
+margin-top: 10px;
+}
+
+.add-deduction:hover {
+background-color: #6020d4;
+}
+.deduction-store, .selected-deductions {
+margin: 20px 0;
+}
+
+.add-button {
+background: #f0f0f0;
+border: 2px solid #7631f5;
+border-radius: 20px;
+padding: 8px 15px;
+margin: 5px;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.add-button:hover {
+background: #7631f5;
+color: white;
+}
+
+.modern-quantity {
+display: flex;
+align-items: center;
+background: #f8f9fa;
+border-radius: 12px;
+padding: 4px;
+gap: 8px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.modern-quantity button {
+width: 32px;
+height: 32px;
+border: none;
+border-radius: 8px;
+background: #7631f5;
+color: white;
+font-size: 18px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.2s ease;
+}
+
+.modern-quantity button:hover {
+background: #6020d4;
+transform: translateY(-1px);
+}
+
+.modern-quantity button:active {
+transform: translateY(1px);
+}
+
+.modern-quantity input {
+width: 50px;
+height: 32px;
+border: 2px solid #e0e0e0;
+border-radius: 8px;
+text-align: center;
+font-size: 16px;
+font-weight: 500;
+color: #333;
+background: white;
+}
+
+.modern-quantity input:focus {
+border-color: #7631f5;
+outline: none;
+box-shadow: 0 0 0 3px rgba(118,49,245,0.1);
+}
+
+.quantity-label {
+font-size: 14px;
+color: #666;
+margin-left: 8px;
+}
+
+.remove-btn {
+background: #ff3d3d;
+color: white;
+border: none;
+border-radius: 4px;
+padding: 2px 8px;
+margin-left: 10px;
+cursor: pointer;
+}
+
+.quantity-controls {
+display: flex;
+align-items: center;
+gap: 5px;
+}
+
+.quantity-btn {
+width: 25px;
+height: 25px;
+border: none;
+border-radius: 50%;
+background: #7631f5;
+color: white;
+cursor: pointer;
+}
+
+.quantity-input {
+width: 40px;
+text-align: center;
+border: 1px solid #ddd;
+border-radius: 4px;
+padding: 2px;
+}
+
+/* Add this to remove default number input spinners */
+.modern-quantity input[type="number"]::-webkit-inner-spin-button,
+.modern-quantity input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+appearance: none;
+margin: 0;
+}
+
+.modern-quantity input[type="number"] {
+-moz-appearance: textfield; /* Firefox */
+appearance: textfield; /* Standard property */
+}
+
+.amount-input {
+width: 150px !important;
+padding: 8px 12px !important;
+border: 2px solid #e0e0e0 !important;
+border-radius: 8px !important;
+font-size: 14px !important;
+color: #333 !important;
+background: white !important;
+}
+
+.amount-input:focus {
+border-color: #7631f5 !important;
+outline: none !important;
+box-shadow: 0 0 0 3px rgba(118,49,245,0.1) !important;
+}
+
+footer {
+font-family: "Inter", sans-serif;
+text-align: center;
+padding: 10px 0;
+position: relative;
+bottom: 0;
+font-size: 0.8rem;
+}
+
+#logo {
+    text-align: center;
+    margin-bottom: 25px; /* Slightly increased for better spacing */
+    margin-top: 15px; /* More balanced top margin */
+    position: relative; /* Added for better positioning control */
+}
+
+#logo img {
+    width: 100%; /* Maintain responsive behavior */
+    max-width: 950px; /* Slightly reduced from 380px for cleaner appearance */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    margin-top: -160px;/* Reduced negative margin for cleaner look */
+    margin-bottom: -160px;/* Reduced negative margin for cleaner look */
+    transition: all 0.3s ease; /* Smooth transitions if needed */
+    /* Optional subtle enhancement */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
+}
+
+.income-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    margin: 10px 0;
+    background: #f8f8f8;
+    border-radius: 8px;
+}
+
+.additional-income-fields {
+    background: #f9f9f9;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.income-summary {
+    background: #eef2ff;
+    border-left: 4px solid #7631f5;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.income-summary p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+#totalMonthlyIncome, #totalAnnualIncome {
+    font-weight: 600;
+    color: #7631f5;
+}
+
+.income-store, .selected-incomes {
+    margin: 20px 0;
+}
+
+.add-income-button {
+    background: #f0f0f0;
+    border: 2px solid #7631f5;
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-income-button:hover {
+    background: #7631f5;
+    color: white;
+}
+
+.anak-category-selector {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.anak-category-selector select {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    background-color: white;
+}
+
+.anak-category-selector select:focus {
+    border-color: #7631f5;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(118, 49, 245, 0.1);
+}
+
+.category-label {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.anak-category {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    background-color: white;
+}
+
+.anak-category:focus {
+    border-color: #7631f5;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(118,49,245,0.1);
+}
+
+.deduction-item.toggle-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-template-columns: unset;
+}
+
+/* Special styling for anak deduction items with dropdown category */
+.deduction-item.anak-item {
+    grid-template-columns: auto 1fr auto auto;
+    grid-gap: 10px;
+}
+
+.anak-item .anak-category {
+    width: auto;
+    min-width: 180px;
+    max-width: 100%;
+    padding: 8px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #333;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+/* Remove border and background from anak quantity controls */
+.anak-item .modern-quantity {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    gap: 4px;
+}
+
+/* Style anak quantity buttons to have no visible container */
+.anak-item .modern-quantity button {
+    width: 28px;
+    height: 28px;
+    background-color: #7631f5;
+    color: white;
+    border-radius: 6px;
+}
+
+.anak-item .modern-quantity input {
+    width: 40px;
+    height: 28px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Responsive adjustment for anak items */
+@media (max-width: 650px) {
+    .deduction-item.anak-item {
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "select delete"
+            "controls amount";
+    }
+    
+    .anak-item .anak-category {
+        grid-area: select;
+    }
+    
+    .anak-item .modern-quantity {
+        grid-area: controls;
+    }
+    
+    .anak-item .amount-display {
+        grid-area: amount;
+    }
+    
+    .anak-item .remove-btn {
+        grid-area: delete;
+    }
+}
+
+/* Tooltip Styles - Update to only apply to buttons, not added items */
+.tooltip {
+    position: fixed;
+    background-color: rgba(45, 45, 45, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    max-width: 280px;
+    z-index: 1000;
+    pointer-events: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.15s ease-in;
+    word-wrap: break-word;
+    max-width: 80vw;
+    overflow-wrap: break-word;
+}
+
+/* Update tooltip styling to only apply to buttons */
+.has-tooltip {
+    cursor: help;
+    position: relative;
+}
+
+/* Only apply dotted underline to buttons with tooltips, not added items */
+.add-button.has-tooltip::after,
+.add-income-button.has-tooltip::after {
+    content: none; /* Remove the dotted underline completely */
+}
+
+/* Add a tooltip indicator icon to buttons with tooltips */
+.add-button.has-tooltip,
+.add-income-button.has-tooltip {
+    padding-right: 25px; /* Make space for the icon */
+    position: relative;
+}
+
+/* Add a subtle question mark icon to indicate tooltip availability */
+.add-button.has-tooltip::before,
+.add-income-button.has-tooltip::before {
+    content: "?";
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    background-color: rgba(118, 49, 245, 0.2);
+    color: #7631f5;
+    border-radius: 50%;
+    font-size: 11px;
+    line-height: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Remove tooltip indicator from labels */
+.deduction-label::after,
+.income-label::after {
+    content: none;
+    border-bottom: none;
+}
+
+/* Custom tooltip indicator for icons */
+.tooltip-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: #7631f5;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 12px;
+    line-height: 16px;
+    margin-left: 5px;
+    cursor: help;
+}
+
+/* Payment Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+.modal-title {
+    color: #1a237e;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 1.6em;
+    text-align: center;
+}
+
+.payment-method {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.payment-option {
+    position: relative;
+    height: 70px;
+}
+
+.payment-option input[type="radio"] {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+}
+
+.payment-option label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 10px;
+    height: 100%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: normal;
+    font-size: 0.85em;
+    text-align: center;
+}
+
+.payment-option input[type="radio"]:checked + label {
+    background-color: #f0f4ff;
+    border-color: #7631f5;
+    box-shadow: 0 0 0 2px rgba(118, 49, 245, 0.2);
+}
+
+.payment-option label img {
+    max-width: 40px;
+    max-height: 30px;
+    margin-bottom: 5px;
+}
+
+.form-row {
+    margin-bottom: 15px;
+}
+
+.form-row label {
+    display: block;
+    margin-bottom: 8px;
+    color: #444;
+    font-weight: 500;
+}
+
+.payment-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: all 0.2s ease;
+}
+
+.payment-input:focus {
+    border-color: #7631f5;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(118, 49, 245, 0.1);
+}
+
+.pay-button {
+    background-color: #7631f5;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.pay-button:hover {
+    background-color: #6020d4;
+    transform: translateY(-2px);
+}
+
+.processing-payment {
+    display: none;
+    text-align: center;
+    padding: 20px;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #7631f5;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.payment-success {
+    display: none;
+    text-align: center;
+    padding: 20px;
+}
+
+.success-icon {
+    width: 70px;
+    height: 70px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    margin: 0 auto 20px;
+}
+
+.payment-details {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: left;
+    margin: 20px 0;
+}
+
+.payment-details p {
+    margin: 8px 0;
+    font-size: 0.95em;
+}
+
+.payment-message {
+    display: none;
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 0.9em;
+}
+
+.payment-message.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border-left: 4px solid #f44336;
+}
+
+.payment-message.info {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+    border-left: 4px solid #2196f3;
+}
+
+.btn-pay-zakat {
+    background-color: #4caf50;
+    margin-top: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 250px;
+}
+
+.btn-pay-zakat:hover {
+    background-color: #388e3c;
+}
+
+/* Enhanced responsive layout */
+@media (max-width: 768px) {
+    .container {
+        padding: 25px;
+        margin: 10px;
+        border-radius: 15px;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    #logo img {
+        width: 240px; /* Set specific width for medium screens */
+        margin-top: -50px;
+        margin-bottom: -40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px 15px;
+        margin: 5px;
+    }
+    
+    /* Make buttons larger on small screens for better touch targets */
+    .btn {
+        padding: 16px;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+    }
+    
+    /* Improve payment options layout on small screens */
+    .payment-method {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Better visibility for income and deduction items */
+    .deduction-item, .income-item {
+        padding: 15px 10px;
+    }
+    
+    #logo img {
+        width: 200px; /* Consistent with existing mobile styling */
+        margin-top: -35px; /* Slightly reduced negative margin */
+        margin-bottom: -35px; /* Slightly reduced negative margin */
+    }
+}
+
+/* Improved touch targets for mobile */
+.add-button, .add-income-button, .remove-btn, .quantity-btn {
+    min-height: 36px;
+    min-width: 36px;
+}
+
+/* Fix modal scrolling on mobile */
+@media (max-height: 700px) {
+    .modal-content {
+        margin: 5% auto;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+}
+
+/* Updated Nisab Info Box styling for a more compact layout that fits to content */
+.nisab-info-box {
+    width: auto;
+    display: inline-flex;
+    margin: 0 auto 15px;
+    padding: 8px 15px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* Container for the nisab info box to center it */
+.nisab-info-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Update the color of the numerical values to blue */
+.nisab-value {
+    color: #0066cc; /* Changed from #7631f5 (purple) to #0066cc (blue) */
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .nisab-info-box {
+        padding: 8px 6px;
+        gap: 3px;
+    }
+    
+    .nisab-divider {
+        margin: 0 2px;
+    }
+}
